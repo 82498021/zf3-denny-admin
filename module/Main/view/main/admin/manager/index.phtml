@@ -1,0 +1,55 @@
+<?php $connect=$this->connectHelper();?>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <?=$connect->aDefaultIco("admin/manager",['action'=>'create']);?>
+                </div>
+
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="120">ID</th>
+                            <th width="20%">用户名</th>
+                            <th align="left">昵称</th>
+                            <th width="10%">状态</th>
+                            <th>更新时间</th>
+                            <th>创建时间</th>
+                            <th width="20%" class="text-center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($list as $val):?>
+                            <tr>
+                                <td><?=$val->getId()?></td>
+                                <td align="left"><?=$val->getUsername();?></td>
+                                <td align="left"><?=$val->getNickName();?></td>
+                                <td><?=$val->getStatus()==1?'正常':'禁用'?></td>
+                                <td><?=date('Y-m-d H:i:s',$val->getUpdateTime())?></td>
+                                <td><?=date('Y-m-d H:i:s',$val->getCreateTime())?></td>
+                                <td class="text-right">
+                                    <?=$connect->aSmallIco("admin/manager",['action'=>'reset','id'=>$val->getId()]);?>
+                                    <?=$connect->aSmallIco("admin/manager",['action'=>'update','id'=>$val->getId()]);?>
+                                    <?php if($val->getStatus()==1):?>
+                                    <?=$connect->aSmallIco("admin/manager",['action'=>'delete','id'=>$val->getId()],['onclick'=>'javascript:return window.confirm(\'確定禁用《'.$val->getUsername().'》这个管理员吗??\');']);?>
+                                    <?php else:?>
+                                     <?=$connect->aSmallIco("admin/manager",['action'=>'start','id'=>$val->getId()],['onclick'=>'javascript:return window.confirm(\'確定启用《'.$val->getUsername().'》这个管理员吗??\');']);?>
+                                    <?php endif?>
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                    <?= $this->paginationControl($list,'sliding','partial/paginator',[ 'route' => 'admin/role' ]) ?>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

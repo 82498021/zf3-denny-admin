@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>商城后台管理登录</title>
+    <!-- Le styles -->
+    <?= $this->headLink()
+        ->prependStylesheet($this->basePath('style/admin/css/style.css?v=2.2.0'))
+        ->prependStylesheet($this->basePath('style/admin/css/animate.css'))
+        ->prependStylesheet($this->basePath('style/admin/css/font-awesome.min.css?v=4.3.0'))
+        ->prependStylesheet($this->basePath('style/admin/css/bootstrap.min.css?v=3.4.0'));
+    ?>
+
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+
+            <h1 class="logo-name">ZW</h1>
+
+        </div>
+        <h3>欢迎使用中网科技商城后台</h3>
+        <?php
+        $form = $this->form;
+
+//        $fieldset = $form->get('post');
+
+        $username=$form->get('username');
+
+        $password=$form->get('password');
+
+        $captcha=$form->get('captcha');
+        ?>
+            <?=$this->form()->openTag($form)?>
+            <div class="form-group">
+                <?= $this->formElement($username); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formElement($password); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formCaptcha($captcha);?>
+                <?= $this->formElementErrors()->render($captcha, ['style' => 'list-style:none']) ?>
+            </div>
+            <div class="form-group">
+                <img src="" alt="" width="100" height="32" class="passcode" style="cursor:pointer;" onclick="this.src='?='+Math.random();">
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+            </p>
+
+        <?=$this->form()->closeTag();?>
+    </div>
+</div>
+
+<!-- Scripts -->
+<?= $this->headScript()
+    ->prependFile($this->basePath('style/admin/js/bootstrap.min.js?v=3.4.0'))
+    ->prependFile($this->basePath('style/admin/js/jquery-2.1.1.min.js'))
+?>
+
+</body>
+
+</html>

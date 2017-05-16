@@ -1,0 +1,70 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+
+                    <form action="" method="post">
+
+                        <table class="table table-bordered table-hover">
+                            <tbody>
+                            <tr>
+                                <td>角色：</td>
+                                <td><?=$entity->getTitle()?></td>
+                            </tr>
+                            <?php
+                            foreach($list as $val):?>
+                                <tr>
+                                    <td width="15%"><label class="item" for="y_<?=$val['id']?>">
+                                            <input name="ids[]" id="y_<?=$val['id']?>" type="checkbox"
+                                                   value="<?=$val['id']?>" <?php if(in_array($val['id'],$access)):?>checked<?php endif;?>/>　<?=$val['title']?>
+                                        </label></td>
+                                    <td>
+                                        <?php if(!empty($val['parents'])):?>
+                                            <table class="table table-bordered table-hover">
+                                                <tbody>
+                                                <?php foreach($val['parents'] as $v):?>
+                                                    <tr>
+                                                        <td width="20%"><label class="item" for="f_<?=$v['id']?>">
+                                                                <input name="ids[]" id="f_<?=$v['id']?>"  <?php if(in_array($v['id'],$access)):?>checked<?php endif;?>
+                                                                       class="y_<?=$val['id']?>" type="checkbox" value="<?=$v['id']?>" />　<?=$v['title']?>
+                                                            </label></td>
+                                                        <td>
+                                                            <?php foreach($v['parents'] as $k):?>
+                                                                <label class="item" for="e_<?=$k['id']?>"> <input
+                                                                        name="ids[]" id="e_<?=$k['id']?>"
+                                                                        <?php if(in_array($k['id'],$access)):?>checked<?php endif;?>
+                                                                        class="y_<?=$val['id']?> f_<?=$v['id']?>"
+                                                                        type="checkbox" value="<?=$k['id']?>"/>　<?=$k['title']?>
+                                                                </label>
+                                                            <?php endforeach;?>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach;?>
+                                                </tbody>
+                                            </table>
+                                        <?php endif;?>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <input type="hidden" name="id" value="<?=$entity->getId()?>">
+                                    <button class="btn btn-sm btn-success" type="submit">提 交</button>
+                                    <button type="button" class="btn btn-white btn-sm " onclick="javascript:history.go(-1);tt(this.style.display='none')"> 返回 </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

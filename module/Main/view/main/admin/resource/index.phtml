@@ -1,0 +1,92 @@
+<?php $connect=$this->connectHelper();?>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <?=$connect->aDefaultIco("admin/resources",['action'=>'create']);?>
+                </div>
+
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="120">ID</th>
+                            <th>名称</th>
+                            <th>Moudle</th>
+                            <th>Controller</th>
+                            <th>Action</th>
+                            <th>路由</th>
+                            <th>样式</th>
+                            <th>状态</th>
+                            <th>排序</th>
+                            <th width="15%" class="text-center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($list as $val):?>
+                            <tr>
+                                <td><?=$val['id']?></td>
+                                <td align="left"><?=$val['title']?></td>
+                                <td><?=$val['module']?></td>
+                                <td><?=$val['controller']?></td>
+                                <td><?=$val['action']?></td>
+                                <td><?=$val['router']?></td>
+                                <td><i class="<?=$val['ico']?>"/></td>
+                                <td><?=$val['status']==1?'正常':'禁用'?></td>
+                                <td><?=$val['sort']?></td>
+                                <td class="text-right">
+                                    <?=$connect->aSmallIco("admin/resources",['action'=>'create','id'=>$val['id']]);?>
+                                    <?=$connect->aSmallIco("admin/resources",['action'=>'update','id'=>$val['id']]);?>
+                                    <?=$connect->aSmallIco("admin/resources",['action'=>'delete','id'=>$val['id']],['onclick'=>'javascript:return window.confirm(\'確定刪除《'.$val['title'].'》这条记录吗??\');']);?>
+                                </td>
+                            </tr>
+                            <?php foreach($val['parents'] as $v):?>
+                                <tr>
+                                    <td><?=$v['id']?></td>
+                                    <td align="left">|--<?=$v['title']?></td>
+                                    <td><?=$v['module']?></td>
+                                    <td><?=$v['controller']?></td>
+                                    <td><?=$v['action']?></td>
+                                    <td><?=$v['router']?></td>
+                                    <td><i class="<?=$v['ico']?>"/></td>
+                                    <td><?=$v['status']==1?'正常':'禁用'?></td>
+                                    <td><?=$v['sort']?></td>
+                                    <td class="text-right">
+                                        <?=$connect->aSmallIco("admin/resources",['action'=>'create','id'=>$v['id']]);?>
+                                        <?=$connect->aSmallIco("admin/resources",['action'=>'update','id'=>$v['id']]);?>
+                                        <?=$connect->aSmallIco("admin/resources",['action'=>'delete','id'=>$v['id']],['onclick'=>'javascript:return window.confirm(\'確定刪除《'.$v['title'].'》这条记录吗??\');']);?>
+                                    </td>
+                                </tr>
+                                <?php foreach($v['parents'] as $k):?>
+                                    <tr>
+                                        <td><?=$k['id']?></td>
+                                        <td align="left">&nbsp&nbsp&nbsp&nbsp|--<?=$k['title']?></td>
+                                        <td><?=$k['module']?></td>
+                                        <td><?=$k['controller']?></td>
+                                        <td><?=$k['action']?></td>
+                                        <td><?=$k['router']?></td>
+                                        <td><i class="<?=$k['ico']?>"/></td>
+                                        <td><?=$k['status']==1?'正常':'禁用'?></td>
+                                        <td><?=$k['sort']?></td>
+                                        <td class="text-right">
+                                            <?=$connect->aSmallIco("admin/resources",['action'=>'update','id'=>$k['id']]);?>
+                                            <?=$connect->aSmallIco("admin/resources",['action'=>'delete','id'=>$k['id']],['onclick'=>'javascript:return window.confirm(\'確定刪除《'.$k['title'].'》这条记录吗??\');']);?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach;?>
+                            <?php endforeach;?>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

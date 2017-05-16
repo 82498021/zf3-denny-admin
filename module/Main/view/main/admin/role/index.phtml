@@ -1,0 +1,47 @@
+<?php $connect=$this->connectHelper();?>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <?=$connect->aDefaultIco("admin/role",['action'=>'create']);?>
+                </div>
+
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="120">ID</th>
+                            <th width="20%">名称</th>
+                            <th align="left">描述</th>
+                            <th width="10%">状态</th>
+                            <th width="20%" class="text-center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($list as $val):?>
+                            <tr>
+                                <td><?=$val->getId()?></td>
+                                <td align="left"><?=$val->getTitle();?></td>
+                                <td align="left"><?=$val->getRack();?></td>
+                                <td><?=$val->getStatus()==1?'正常':'禁用'?></td>
+                                <td class="text-right">
+                                    <?=$connect->aSmallIco("admin/role",['action'=>'access','id'=>$val->getId()]);?>
+                                    <?=$connect->aSmallIco("admin/role",['action'=>'update','id'=>$val->getId()]);?>
+                                    <?=$connect->aSmallIco("admin/role",['action'=>'delete','id'=>$val->getId()],['onclick'=>'javascript:return window.confirm(\'確定刪除《'.$val->getTitle().'》这条记录吗??\');']);?>
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                    <?= $this->paginationControl($list,'sliding','partial/paginator',[ 'route' => 'admin/role' ]) ?>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
